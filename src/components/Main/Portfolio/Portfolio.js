@@ -7,18 +7,18 @@ function Portfolio() {
     <section className='portfolio'>
       <h2 className='portfolio__title'>Портфолио</h2>
       <ul className='portfolio__links'>
-        <a className='portfolio__link'>
-          <p className='portfolio__link-text'>Статичный сайт</p>
-          <img src={''} alt='Стрелка' className='portfolio__link-icon'/>
-        </a>
-        <a className='portfolio__link'>
-          <p className='portfolio__link-text'>Адаптивный сайт</p>
-          <img src={''} alt='Стрелка' className='portfolio__link-icon'/>
-        </a>
-        <a className='portfolio__link'>
-          <p className='portfolio__link-text'>Одностраничное приложение</p>
-          <img src={''} alt='Стрелка' className='portfolio__link-icon'/>
-        </a>
+        <li className='portfolio__links-element'>
+            <p className='portfolio__link-text'>Статичный сайт</p>
+            <a className='portfolio__link' href='https://github.com/marinakobozeva/how-to-learn' target="_blank" rel="noreferrer noopener">↗</a>
+        </li>
+        <li className='portfolio__links-element'>
+            <p className='portfolio__link-text'>Адаптивный сайт</p>
+            <a className='portfolio__link' href='https://github.com/marinakobozeva/russian-travel' target="_blank" rel="noreferrer noopener">↗</a>
+        </li>
+        <li className='portfolio__links-element'>
+            <p className='portfolio__link-text'>Одностраничное приложение</p>
+            <a className='portfolio__link' href='https://github.com/marinakobozeva/react-mesto-api-full' target="_blank" rel="noreferrer noopener">↗</a>
+        </li>
       </ul>
     </section>
   )

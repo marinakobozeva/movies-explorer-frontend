@@ -1,0 +1,156 @@
+.header {
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 70px;
+  margin: 0 auto;
+  min-height: 74px;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.header_type_blue {
+  background-color: #465DFF;
+}
+
+.header_type_white {
+  background-color: #fff;
+}
+
+.header__logo-link {
+  padding: 0;
+  margin: 0;
+}
+
+.header__logo {
+  width: 38px;
+  height: 38px;
+  transition: transform 2s;
+}
+
+.header__logo:hover {
+  transform: rotate(360deg);
+  cursor: pointer;
+}
+
+.header__buttons {
+  display: flex;
+  width: auto;
+  justify-content: right;
+  height: 32px;
+  align-items: center;
+  background-color: transparent;
+}
+
+.header__button {
+  transition: opacity .2s linear, transform .1s;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.header__button:hover {
+  cursor: pointer;
+  opacity: .7;
+  transform: scale(1.2, 1.2);
+}
+
+.header__button_type_signup {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  width: 77px;
+  height: 16px;
+  padding: 0;
+  margin-right: 30px;
+  background-color: blue;
+}
+
+.header__button_type_signin {
+  background-color: #2BE080;
+  border-radius: 3px;
+  width: 76px;
+  border: none;
+  height: 32px;
+}
+
+.header__button_type_movies {
+  width: 58px;
+  height: 18px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  border: none;
+  padding: 0;
+}
+
+.header__button_type_saved-movies {
+  width: 153px;
+  height: 18px;
+  margin: 0px 50px 0 20px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  border: none;
+  padding: 0;
+}
+
+.header__button_type_account {
+  border: 2px solid rgba(170, 170, 170, .2);
+  background-color: #fff;
+  border-radius: 50px;
+  width: 100px;
+  box-sizing: border-box;
+  height: 32px;
+  display: flex;
+  align-items:center;
+  justify-content: space-between;
+  padding: 9px 12px;
+}
+
+.header__button-title_type_account {
+  font-weight: 500;
+  font-size: 14px;
+  width: 57px;
+  line-height: 16px;
+  padding: 0;
+  margin: 0;
+  color: #000;
+}
+
+@media screen and (max-width: 1279px) {
+  .header {
+    padding: 0 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header {
+    padding: 0 14px;
+  }
+
+  .header__buttons {
+    width: calc(64px + 14px + 54px);
+    height: 26px;
+  }
+
+  .header__button {
+    font-size: 10px;
+    line-height: 16px;
+  }
+
+  .header__button_type_signup {
+    width: 64px;
+    height: 16px;
+    margin-right: 14px;
+  }
+
+  .header__button_type_signin {
+    width: 54px;
+    height: 26px;
+  }
+}

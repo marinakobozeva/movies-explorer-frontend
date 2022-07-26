@@ -1,20 +1,15 @@
 import React from 'react';
 
 import './Promo.css';
-import Header from '../../Header/Header';
-import NavTab from '../NavTab/NavTab';
-import promoImage from '../../../images/promo_img.svg'
+
+import PromoImage from '../../../images/promo_img.svg'
 
 function Promo() {
   return (
     <section className='promo'>
-    <Header />
-      <div>
+      <div className='promo__container'>
         <h1 className='promo__title'>Учебный проект студента факультета Веб-разработки.</h1>
-        <img src={promoImage} alt="Буква П в круге"/>
-      </div>
-      <div className='nav-tab'>
-
+        <img className='promo__image' src={PromoImage} alt="Буква П в круге"/>
       </div>
     </section>
   )
