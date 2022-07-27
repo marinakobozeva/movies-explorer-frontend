@@ -1,5 +1,6 @@
 .movies__card {
   max-width: 364px;
+  max-height: 271px;
   margin: 0;
   padding: 0;
   background: #FDFDFD;
@@ -104,7 +105,7 @@
   }
 
   @media screen and (max-width: 1279px) {
-    .movie__card {
+    .movies__card {
       width: 339px;
       height: 258px;
     }
@@ -112,7 +113,7 @@
     .movies__card-title {
       width: 250px;
     }
-    }
+}
 
     @media screen and (max-width: 767px) {
       .movies__card {
@@ -121,6 +122,6 @@
       }
 
       .movies__card-title {
-        width: 210px;
+       width: 210px;
       }
     }
