@@ -1,6 +1,13 @@
 .movies {
   max-width: 1280px;
   margin: 0 auto;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   background-color: #FDFDFD;
+}
+
+@media screen and (max-width: 1279px) {
+  .movies {
+    padding: 0 30px;
+  }
 }

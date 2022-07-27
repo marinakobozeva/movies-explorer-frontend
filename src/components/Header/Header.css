@@ -44,6 +44,11 @@
   background-color: transparent;
 }
 
+.header__buttons_type_burger {
+  width: 44px;
+  height: 44px;
+}
+
 .header__button {
   transition: opacity .2s linear, transform .1s;
   font-weight: 500;

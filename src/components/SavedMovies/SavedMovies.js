@@ -1,19 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
 
-import MoreButton from '../MoreButton/MoreButton';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-import './Movies.css';
+import '../Movies/Movies.css';
+import './SavedMovies.css';
 
-import { movies } from '../../constants/moviesArray';
+import { savedMovies } from '../../constants/moviesArray';
 
-function Movies(props) {
-  const [moviesArray, setMoviesArray] = useState(movies);
+function SavedMovies(props) {
+  const [moviesArray, setMoviesArray] = useState(savedMovies);
   const onSaveClick = (movie) => {
     const newArray = []
-    movies.forEach((item) => {
+    savedMovies.forEach((item) => {
       if (movie.id === item.id) {
         item.saved = !item.saved
       }
@@ -23,12 +23,11 @@ function Movies(props) {
   }
 
   return (
-    <div className='movies'>
+    <div className='movies saved-movies'>
       <SearchForm />
-      <MoviesCardList moviesArray={ moviesArray } onSaveClick={ onSaveClick } onlySaved={ false } />
-      <MoreButton />
+      <MoviesCardList moviesArray={ moviesArray } onSaveClick={ onSaveClick } onlySaved={ true }/>
     </div>
   )
 }
 
-export default Movies;
+export default SavedMovies;

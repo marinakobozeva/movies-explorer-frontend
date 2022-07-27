@@ -1,0 +1,131 @@
+.portfolio {
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 70px;
+  margin: 0 auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.portfolio__title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #A0A0A0;
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio__links {
+  list-style: none;
+  padding: 0;
+  margin: 50px 0 125px;
+}
+
+.portfolio__links-element {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px solid #E8E8E8;
+  margin-top: 21px;
+  padding-bottom: 18px;
+}
+
+.portfolio__links-element:last-child {
+  border-bottom: none;
+}
+
+.portfolio__link-text {
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #000000;
+  padding: 0;
+  margin: 0;
+}
+
+.portfolio__link {
+  font-size: 30px;
+  line-height: 60px;
+  letter-spacing: -0.04em;
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  -webkit-transition: opacity .2 linear;
+  -o-transition: opacity .2 linear;
+  transition: opacity .2 linear;
+  color: #000;
+}
+
+.portfolio__link:hover {
+  opacity: .7;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1279px) {
+  .portfolio {
+    padding: 0 50px;
+  }
+
+  .portfolio__links {
+    margin: 45px 0 125px;
+  }
+
+  .portfolio__links-element {
+    margin-top: 16px;
+    padding-bottom: 13px;
+  }
+
+  .portfolio__link-text {
+    font-size: 28px;
+    line-height: 50px;
+
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .portfolio {
+    padding: 0 14px;
+
+  }
+
+  .portfolio__title {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .portfolio__links {
+    margin-top: 40px;
+  }
+
+  .portfolio__link {
+    width: 18px;
+    height: 28px;
+    font-size: 18px;
+line-height: 28px;
+  }
+
+  .portfolio__link-text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .portfolio__links-element {
+    margin-top: 20px;
+    padding-bottom: 19px;
+    height: 28px;
+
+  }
+
+}
