@@ -9,6 +9,7 @@
   list-style: none;
   padding: 0 70px;
   margin: 70px 0 0 ;
+  justify-content: center;
 }
 
 @media screen and (max-width: 1279px) {
