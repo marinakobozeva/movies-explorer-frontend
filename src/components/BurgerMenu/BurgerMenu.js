@@ -26,7 +26,7 @@ function BurgerMenu(props) {
                 <NavLink className='burger-menu__link burger-menu__link_type_active'to='/movies'>Фильмы</NavLink>
                 <NavLink className='burger-menu__link'to='/saved-movies'>Сохранённые фильмы</NavLink>
               </div>
-              <NavLink to='/profile' className='header__button header__button_type_account'>
+              <NavLink to='/profile' className='burger-menu__link_type_account header__button header__button_type_account '>
                 <img src={accountIcon} alt='Иконка человечка'/>
                 <p className='header__button-title_type_account'>Аккаунт</p>
               </NavLink>

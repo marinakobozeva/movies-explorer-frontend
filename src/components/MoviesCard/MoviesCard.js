@@ -14,8 +14,7 @@ function MoviesCard(props) {
   }
 
   return (
-    <li className="movies-card-list__item" key={movie.id}>
-      <div className='movies__card'>
+    <li className="movies__card" key={movie.id}>
         <div className='movies__card-caption'>
           <div className='movies__card-text'>
             <p className='movies__card-title'>33 слова о дизайне</p>
@@ -28,7 +27,6 @@ function MoviesCard(props) {
           }
         </div>
         <img className='movies__card-poster' src={movie.poster} alt='Постер'/>
-      </div>
     </li>
   )
 }
