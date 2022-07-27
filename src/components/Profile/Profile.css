@@ -91,6 +91,8 @@
   font-size: 13px;
   line-height: 16px;
   border: none;
+  text-decoration: none;
+  align-self: center;
 }
 
 .profile-btn:hover {

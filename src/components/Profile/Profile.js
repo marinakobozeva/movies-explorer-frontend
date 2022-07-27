@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { NavLink } from 'react-router-dom';
 import './Profile.css';
 
 function Profile() {
@@ -17,7 +17,7 @@ function Profile() {
             <p className='profile__input profile__input_type_email'>marina@ya.ru</p>
         </div>
         <button className='profile__edit-btn profile-btn'>Редактировать</button>
-        <button className='profile__exit-btn profile-btn'>Выйти из аккаунта</button>
+        <NavLink to='/signin' className='profile__exit-btn profile-btn'>Выйти из аккаунта</NavLink>
       </form>
     </div>
   )
