@@ -9,7 +9,9 @@
   list-style: none;
   padding: 0 70px;
   margin: 70px 0 0 ;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 
 }
 

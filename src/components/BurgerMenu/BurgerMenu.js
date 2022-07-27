@@ -22,9 +22,9 @@ function BurgerMenu(props) {
           <button onClick={handleBurgerClick} className='burger-menu__close-btn'></button>
             <div className='burger-menu__links'>
               <div className='burger-menu__text-links'>
-                <NavLink className='burger-menu__link'to='/'>Главная</NavLink>
-                <NavLink className='burger-menu__link burger-menu__link_type_active'to='/movies'>Фильмы</NavLink>
-                <NavLink className='burger-menu__link'to='/saved-movies'>Сохранённые фильмы</NavLink>
+              <NavLink className='burger-menu__link' exact to='/' activeClassName='burger-menu__link_type_active'>Главная</NavLink>
+              <NavLink className='burger-menu__link' to='/movies' activeClassName='burger-menu__link_type_active'>Фильмы</NavLink>
+              <NavLink className='burger-menu__link' to='/saved-movies' activeClassName='burger-menu__link_type_active'>Сохранённые фильмы</NavLink>
               </div>
               <NavLink to='/profile' className='burger-menu__link_type_account header__button header__button_type_account '>
                 <img src={accountIcon} alt='Иконка человечка'/>
