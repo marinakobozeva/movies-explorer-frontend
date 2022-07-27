@@ -1,0 +1,57 @@
+.nav-tab {
+  max-width: 1280px;
+  height: 66px;
+  margin: 0 auto;
+  padding: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #F5F5F5;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.nav-tab__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: auto 40px auto 40px auto;
+  grid-template-columns: repeat(3, auto);
+  -ms-grid-rows: 18px;
+  grid-template-rows: 18px;
+  grid-column-gap: 40px;
+}
+
+.nav-tab__link {
+  -webkit-transition: opacity .2 linear;
+  -o-transition: opacity .2 linear;
+  transition: opacity .2 linear;
+  font-weight: 500;
+font-size: 13px;
+line-height: 16px;
+text-decoration: underline;
+color: #000000;
+}
+
+.nav-tab__link:hover {
+  cursor: pointer;
+  opacity: .7;
+}
+
+@media screen and (max-width: 767px) {
+  .nav-tab__element {
+    font-size: 11px;
+  }
+}
