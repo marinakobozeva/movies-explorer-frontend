@@ -1,24 +1,25 @@
 import React from 'react';
 
+import { parseMovieTime } from '../../utils/MoviesToolbox';
 import './MoviesCard.css';
 
 
 function MoviesCard(props) {
   const movie = props.movie;
-  const onSaveClick = props.onSaveClick;
+  const onMovieSave = props.onMovieSave;
   const onlySaved = props.onlySaved;
 
   const handleSaveClick = (event) => {
     event.stopPropagation();
-    onSaveClick(movie)
+    onMovieSave(movie)
   }
 
   return (
     <li className="movies__card" key={movie.id}>
         <div className='movies__card-caption'>
           <div className='movies__card-text'>
-            <p className='movies__card-title'>33 слова о дизайне</p>
-            <p className='movies__card-duration'>1ч 47м</p>
+            <p className='movies__card-title'>{movie.nameRU}</p>
+            <p className='movies__card-duration'>{parseMovieTime(movie.duration)}</p>
           </div>
           {
             onlySaved ?

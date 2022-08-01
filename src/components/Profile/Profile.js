@@ -1,8 +1,10 @@
 import React from 'react';
+import { useState } from 'react';
+
 import { NavLink } from 'react-router-dom';
 import './Profile.css';
 
-function Profile() {
+function Profile(props) {
   return (
     <div className='profile'>
       <h2 className="profile__title">Привет, Марина!</h2>

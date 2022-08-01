@@ -13,6 +13,7 @@ function Header(props) {
   const location = useLocation();
   const isMain = location.pathname === '/' ? true : false;
 
+  // TODO: setTimeout чтобы часто не отрисовывать
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const isMobile = windowWidth <= 768 ? true : false;
   const updatetWindowWidth = () => {

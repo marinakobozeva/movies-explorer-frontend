@@ -6,7 +6,7 @@ import './MoviesCardList.css';
 
 function MoviesCardList(props) {
   const moviesArray = props.moviesArray;
-  const onSaveClick = props.onSaveClick;
+  const onMovieSave = props.onMovieSave;
   const onlySaved = props.onlySaved;
 
   return (
@@ -16,7 +16,7 @@ function MoviesCardList(props) {
           <MoviesCard
             key={movie.id}
             movie={movie}
-            onSaveClick={onSaveClick}
+            onMovieSave={onMovieSave}
             onlySaved={onlySaved}
           />
         ))}
