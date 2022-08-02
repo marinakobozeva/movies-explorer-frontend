@@ -10,16 +10,6 @@ class MainApi {
     return Promise.reject(`Error: ${res.status}`);
   }
 
-  checkToken(token) {
-    return fetch(`${this.options.baseUrl}/users/me`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        ...this.options.headers,
-      },
-    })
-    .then(this._checkResponse);
-  }
-
   signUp(name, email, password) {
     return fetch(`${this.options.baseUrl}/signup`, {
       method: 'POST',

@@ -34,19 +34,45 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [moviesArray, setMoviesArray] = useState([]);
+  const [cachedQuery, setCachedQuery] = useState('');
 
+  //---------- ФИЛЬМЫ
+  // Один раз при монтировании смотрим, есть ли фильмы и запрос в локальном хранилище
+  useEffect(() => {
+    const bufMovies = JSON.parse(localStorage.getItem('moviesArray'));
+    if (bufMovies) {
+      setMoviesArray(bufMovies);
+    }
+
+    const bufQuery = localStorage.getItem('cachedQuery');
+    if (bufQuery) {
+      setCachedQuery(bufQuery)
+    }
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('moviesArray', JSON.stringify(moviesArray));
+  }, [moviesArray])
+
+  useEffect(() => {
+    localStorage.setItem('cachedQuery', cachedQuery)
+  }, [cachedQuery])
+
+  const searchFields = ['nameRU', 'nameEN', 'country', 'director', 'year'];
   const onSearch = (query) => {
     MoviesApi.getMovies()
       .then((response) => {
-        const filteredMovies = filterByQuery(response, query, ['nameRU', 'nameEN']);
+        const filteredMovies = filterByQuery(response, query, searchFields);
         const updatedMovies = updateMoviesPoster(filteredMovies, MoviesApi.options.baseUrl)
-        console.log(updatedMovies);
         setMoviesArray(updatedMovies);
+        setCachedQuery(query);
       })
       .catch((message) => {
         console.log(message)
       })
   }
+
+  //---------- ВЗАИМОДЕЙСТВИЕ С КАРТОЧКОЙ
 
   const onMovieSave = (movie) => {
     console.log(`Movie ${movie.id} saved!`)
@@ -116,7 +142,7 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='app'>
         <Route exact path={['/', '/movies', '/saved-movies', '/profile']}>
-          <Header />
+          <Header loggedIn={loggedIn} />
         </Route>
           <Switch>
             <Route path='/404'>
@@ -132,7 +158,11 @@ function App() {
               <Profile onSignOut={onSignOut} onUserInfoUpdate={onUserInfoUpdate}/>
             </ProtectedRoute>
             <ProtectedRoute loggedIn={loggedIn} path='/movies'>
-              <Movies onSearch={onSearch} onMovieSave={onMovieSave} moviesArray={moviesArray} />
+              <Movies
+                onSearch={onSearch}
+                onMovieSave={onMovieSave}
+                cachedQuery={cachedQuery}
+                moviesArray={moviesArray} />
             </ProtectedRoute>
             <ProtectedRoute loggedIn={loggedIn} path='/saved-movies'>
               <SavedMovies />

@@ -5,8 +5,7 @@ import accountIcon from '../../images/account-icon.svg';
 
 
 function Navigation(props) {
-  // const isLogged = props.isLogged;
-  const isLogged = true;
+  const isLogged = props.loggedIn;
 
   return (
     <div className='header__buttons'>

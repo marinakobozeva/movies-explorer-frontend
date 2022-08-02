@@ -11,6 +11,8 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 
 function Header(props) {
   const location = useLocation();
+
+  const loggedIn = props.loggedIn;
   const isMain = location.pathname === '/' ? true : false;
 
   // TODO: setTimeout чтобы часто не отрисовывать
@@ -32,7 +34,7 @@ function Header(props) {
       <NavLink to='/' className='header__logo-link'>
         <img className='header__logo' src={logo} alt='Логотип'/>
       </NavLink>
-      { isMobile ? <BurgerMenu burgerState={ burgerState } toggleBurger={ toggleBurger } /> : <Navigation/> }
+      { isMobile ? <BurgerMenu burgerState={ burgerState } toggleBurger={ toggleBurger } /> : <Navigation loggedIn={loggedIn}/> }
     </header>
   )
 }
