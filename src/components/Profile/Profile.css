@@ -32,7 +32,6 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  /* min-width: 410px; */
   width: 100%;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
@@ -51,11 +50,20 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  align-items: center;
+
+}
+
+.profile__form-error {
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
 }
 
 .profile__bar {
   border: 1px solid #E8E8E8;
-  margin-bottom: 16px;
+  margin: 16px 0;
 }
 
 .profile__form-caption {
@@ -69,9 +77,18 @@
 
 .profile__input {
   font-size: 11px;
+  font-weight: 500;
+  text-align: right;
   line-height: 13px;
   margin: 0;
   padding: 0;
+  border: none;
+  height: 100%;
+  width: 90%;
+}
+
+.profile__input:focus {
+  outline: 2px solid #FF6838;
 }
 
 .profile__edit-btn {

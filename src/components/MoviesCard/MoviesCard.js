@@ -27,7 +27,9 @@ function MoviesCard(props) {
               <button onClick={handleSaveClick} className={ movie.saved ? 'movies__card-button movies__card-button_type_active' : 'movies__card-button' }></button>
           }
         </div>
-        <img className='movies__card-poster' src={movie.poster} alt='Постер'/>
+        <a className='movies__card-link' href={movie.trailerLink} target="_blank" rel="noopener noreferrer">
+          <img className='movies__card-poster' src={movie.poster} alt='Постер'/>
+        </a>
     </li>
   )
 }

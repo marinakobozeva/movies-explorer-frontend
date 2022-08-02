@@ -59,9 +59,8 @@ function Login(props) {
             required/>
           <span className="login__form-error">Что-то пошло не так...</span>
         </div>
-
+        <button type='submit' className='login__button'>Войти</button>
       </form>
-      <button type='submit' className='login__button'>Войти</button>
       <div className='login__caption'>
         <p className='login__caption-text'>Ещё не зарегистрированы?</p>
         <NavLink to='/signup' className='login__caption-link'>Регистрация</NavLink>

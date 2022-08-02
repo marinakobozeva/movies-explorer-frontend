@@ -1,26 +1,58 @@
 import React from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+
 import './Profile.css';
 
 function Profile(props) {
+  const onSignOut = props.onSignOut;
+  const onUserInfoUpdate = props.onUserInfoUpdate;
+  const currentUser = useContext(CurrentUserContext);
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+
+  const handleSignOut = (event) => {
+    event.preventDefault();
+    onSignOut();
+  }
+
+  const handleSubmitForm = (event) => {
+    event.preventDefault();
+    onUserInfoUpdate(name, email);
+  }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  }
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  }
+
   return (
     <div className='profile'>
-      <h2 className="profile__title">Привет, Марина!</h2>
-      <form className='profile__form'>
+      <h2 className="profile__title"> Привет,
+      {' '}
+      {currentUser.name}
+      {' '}
+      !</h2>
+      <form className='profile__form' onSubmit={handleSubmitForm}>
         <div className='profile__form-field'>
             <p className='profile__form-caption'>Имя</p>
-            <p className='profile__input profile__input_type_name'>Марина</p>
+            <input onChange={handleNameChange} className='profile__input profile__input_type_name' value={name}></input>
         </div>
+        <span className="profile__form-error"></span>
         <span className='profile__bar'></span>
         <div className='profile__form-field'>
             <p className='profile__form-caption'>E-mail</p>
-            <p className='profile__input profile__input_type_email'>marina@ya.ru</p>
+            <input onChange={handleEmailChange} className='profile__input profile__input_type_email' value={email}></input>
         </div>
-        <button className='profile__edit-btn profile-btn'>Редактировать</button>
-        <NavLink to='/signin' className='profile__exit-btn profile-btn'>Выйти из аккаунта</NavLink>
+        <span className="profile__form-error"></span>
+        <button type='submit' className='profile__edit-btn profile-btn'>Редактировать</button>
       </form>
+      <button onClick={handleSignOut} type='submit' className='profile__exit-btn profile-btn'>Выйти из аккаунта</button>
     </div>
   )
 }

@@ -77,6 +77,10 @@
           box-sizing: border-box;
 }
 
+.register__input_type_errors {
+  color: #EE3465;
+}
+
 .register__input:focus {
   outline: 2px solid #FF6838;
 }

@@ -7,8 +7,12 @@ import { NavLink } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
 
+// TODO: разобраться
+import useFormWithValidation from '../../utils/useFormWithValidation';
+
 function Register(props) {
   const onRegistration = props.onRegistration;
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -71,16 +75,15 @@ function Register(props) {
             type='password'
             name='password'
             placeholder='Пароль'
-            className='register__input register__input_type_password'
-            maxLength='40'
+            className='register__input register__input_type_name'
             minLength='2'
             onChange={handlePasswordChange}
             value={password}
             required/>
-          <span className="register__form-error">Что-то пошло не так...</span>
+          <span className="register__form-error"></span>
         </div>
+        <button type='submit' className='register__button'>Зарегистрироваться</button>
       </form>
-      <button type='submit' className='register__button'>Зарегистрироваться</button>
       <div className='register__caption'>
         <p className='register__caption-text'>Уже зарегистированы?</p>
         <NavLink to='/signin' className='register__caption-link'>Войти</NavLink>
