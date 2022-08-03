@@ -45,12 +45,13 @@ function Profile(props) {
               required
               type='text'
               name='name'
+              maxLength='40'
+              minLength='2'
               onChange={handleChange}
               className='profile__input profile__input_type_name'
               value={values.name || ''} />
-            <span className="register__form-error">{errors.name}</span>
         </div>
-        <span className="profile__form-error"></span>
+        <span className="profile__form-error">{errors.name}</span>
         <span className='profile__bar'></span>
         <div className='profile__form-field'>
             <p className='profile__form-caption'>E-mail</p>
@@ -61,9 +62,8 @@ function Profile(props) {
               onChange={handleChange}
               className='profile__input profile__input_type_email'
               value={values.email || ''} />
-              <span className="register__form-error">{errors.email}</span>
         </div>
-        <span className="profile__form-error"></span>
+        <span className="profile__form-error">{errors.email}</span>
         <p className='profile__form-message'>{profileMessage || ''}</p>
         <button
           type='submit'
