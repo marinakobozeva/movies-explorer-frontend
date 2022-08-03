@@ -1,27 +1,20 @@
 import React from 'react';
-import { useState } from 'react';
 
 import { withRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
 
 import './Login.css';
 import logo from '../../images/logo.svg';
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
 
 function Login(props) {
   const onLogin = props.onLogin;
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  }
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  }
+  const { values, errors, isValid, handleChange } = useFormWithValidation();
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
-    onLogin(email, password)
+    onLogin(values.email, values.password);
   }
 
   return (
@@ -40,10 +33,10 @@ function Login(props) {
             className='login__input login__input_type_email'
             maxLength='40'
             minLength='2'
-            onChange={handleEmailChange}
-            value={email}
+            onChange={handleChange}
+            value={values.email || ''}
             required/>
-          <span className="login__form-error"></span>
+          <span className="login__form-error">{errors.email}</span>
         </div>
         <div className='login__form-field'>
           <p className='login__form-caption'>Пароль</p>
@@ -53,13 +46,13 @@ function Login(props) {
             placeholder='Пароль'
             className='login__input login__input_type_password'
             maxLength='40'
-            onChange={handlePasswordChange}
-            value={password}
+            onChange={handleChange}
+            value={values.password || ''}
             minLength='2'
             required/>
-          <span className="login__form-error">Что-то пошло не так...</span>
+          <span className="login__form-error">{errors.password}</span>
         </div>
-        <button type='submit' className='login__button'>Войти</button>
+        <button type='submit' onClick={handleSubmit} className={`login__button ${isValid && 'login__button_type_active'}`} disabled={!isValid}>Войти</button>
       </form>
       <div className='login__caption'>
         <p className='login__caption-text'>Ещё не зарегистрированы?</p>
