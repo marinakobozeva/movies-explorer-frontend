@@ -50,6 +50,7 @@ function Profile(props) {
             <input onChange={handleEmailChange} className='profile__input profile__input_type_email' value={email}></input>
         </div>
         <span className="profile__form-error"></span>
+        <span className="profile__form-edit"></span>
         <button type='submit' className='profile__edit-btn profile-btn'>Редактировать</button>
       </form>
       <button onClick={handleSignOut} type='submit' className='profile__exit-btn profile-btn'>Выйти из аккаунта</button>

@@ -116,7 +116,7 @@
 }
 
 .register__caption {
-  margin: 0;
+  margin-top: 123px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 169px 6px 42px;
@@ -196,6 +196,7 @@
     -ms-grid-rows: 15px;
     grid-template-rows: 15px;
     grid-column-gap: 7px;
+    margin-top: 216px;
   }
 
   .register__caption-text {

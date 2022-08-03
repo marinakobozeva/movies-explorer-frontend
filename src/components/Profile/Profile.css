@@ -61,6 +61,14 @@
   color: #EE3465;
 }
 
+.profile__form-edit {
+  color: #2be080;
+  margin: 220px auto 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
 .profile__bar {
   border: 1px solid #E8E8E8;
   margin: 16px 0;
@@ -85,6 +93,7 @@
   border: none;
   height: 100%;
   width: 90%;
+  border-radius: 3px;
 }
 
 .profile__input:focus {
@@ -95,7 +104,7 @@
   background-color: transparent;
   color: #000;
   border: none;
-  margin: 203px 0 16px;
+  margin: 16px 0;
   font-weight: 400;
   font-size: 13px;
   line-height: 16px;
@@ -128,9 +137,6 @@ cursor: pointer;
     margin: 96px auto 0;
   }
 
-  .profile__edit-btn {
-    margin: 192px 0 16px;
-  }
 }
 
 @media screen and (max-width: 767px) {
@@ -145,7 +151,7 @@ cursor: pointer;
   }
 
   .profile__edit-btn {
-    margin: 360px 0 14px;
+    margin: 14px 0 14px;
     font-size: 12px;
     line-height: 15px;
   }
@@ -158,4 +164,5 @@ cursor: pointer;
   .profile__form-caption {
     width: 130px;
   }
+
 }
