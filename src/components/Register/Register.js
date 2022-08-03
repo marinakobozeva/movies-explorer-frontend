@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 
 import { withRouter } from 'react-router-dom';
 import { NavLink } from 'react-router-dom';
@@ -7,31 +6,16 @@ import { NavLink } from 'react-router-dom';
 import './Register.css';
 import logo from '../../images/logo.svg';
 
-// TODO: разобраться
-import useFormWithValidation from '../../utils/useFormWithValidation';
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
 
 function Register(props) {
   const onRegistration = props.onRegistration;
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { values, errors, isValid, handleChange } = useFormWithValidation();
 
-  const handleSubmit = (event) => {
+  function handleSubmit(event) {
     event.preventDefault();
-    onRegistration(name, email, password);
-  }
-
-  const handleNameChange = (event) => {
-    setName(event.target.value)
-  }
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
-  }
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value)
+    onRegistration(values.name, values.email, values.password);
   }
 
   return (
@@ -50,10 +34,10 @@ function Register(props) {
             className='register__input register__input_type_name'
             maxLength='40'
             minLength='2'
-            onChange={handleNameChange}
-            value={name}
+            onChange={handleChange}
+            value={values.name || ''}
             required/>
-          <span className="register__form-error"></span>
+          <span className="register__form-error">{errors.name}</span>
         </div>
         <div className='register__form-field'>
           <p className='register__form-caption'>E-mail</p>
@@ -64,10 +48,10 @@ function Register(props) {
             className='register__input register__input_type_email'
             maxLength='40'
             minLength='2'
-            onChange={handleEmailChange}
-            value={email}
+            onChange={handleChange}
+            value={values.email || ''}
             required/>
-          <span className="register__form-error"></span>
+          <span className="register__form-error">{errors.email}</span>
         </div>
         <div className='register__form-field'>
           <p className='register__form-caption'>Пароль</p>
@@ -77,12 +61,12 @@ function Register(props) {
             placeholder='Пароль'
             className='register__input register__input_type_name'
             minLength='2'
-            onChange={handlePasswordChange}
-            value={password}
+            onChange={handleChange}
+            value={values.password || ''}
             required/>
-          <span className="register__form-error"></span>
+          <span className="register__form-error">{errors.password}</span>
         </div>
-        <button type='submit' className='register__button'>Зарегистрироваться</button>
+        <button type='submit' onClick={handleSubmit} className={`register__button ${isValid && 'register__button_type_active'}`} disabled={!isValid}>Зарегистрироваться</button>
       </form>
       <div className='register__caption'>
         <p className='register__caption-text'>Уже зарегистированы?</p>
