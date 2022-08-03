@@ -79,6 +79,8 @@
   line-height: 16px;
   text-decoration: none;
   color: black;
+  text-align: center;
+
 }
 
 .header__button:hover {
@@ -91,13 +93,12 @@
 
 .header__button_type_signup {
   color: #fff;
-  background-color: transparent;
+  background-color: #465cff;
   border: none;
   width: 77px;
   height: 16px;
   padding: 0;
   margin-right: 30px;
-  background-color: blue;
 }
 
 .header__button_type_signin {
@@ -106,6 +107,7 @@
   width: 76px;
   border: none;
   height: 32px;
+  line-height: 32px;
 }
 
 .header__button_type_movies {
