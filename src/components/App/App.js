@@ -219,9 +219,6 @@ function App() {
           <Header loggedIn={loggedIn} />
         </Route>
           <Switch>
-            <Route path='/404'>
-              <NotFound />
-            </Route>
             <Route path='/signup'>
               <Register onRegistration={onRegistration} />
             </Route>
@@ -248,10 +245,10 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn} path='/saved-movies'>
               <SavedMovies onDeleteClick={onDeleteClick} moviesArray={savedMoviesArray} />
             </ProtectedRoute>
-            <Route component={NotFound} />
-            <Route path='/'>
+            <Route exact path='/'>
               <Main />
             </Route>
+            <Route component={NotFound} />
           </Switch>
           <Route exact path={['/', '/movies', '/saved-movies']}>
             <Footer />
