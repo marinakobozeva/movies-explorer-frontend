@@ -248,6 +248,7 @@ function App() {
             <ProtectedRoute loggedIn={loggedIn} path='/saved-movies'>
               <SavedMovies onDeleteClick={onDeleteClick} moviesArray={savedMoviesArray} />
             </ProtectedRoute>
+            <Route component={NotFound} />
             <Route path='/'>
               <Main />
             </Route>
