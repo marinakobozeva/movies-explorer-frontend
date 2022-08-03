@@ -31,7 +31,7 @@
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 68px 20px 68px;
-  grid-template-rows: repeat(2, 68px);
+  grid-template-rows: repeat(2, 80px);
   -ms-grid-columns: 100%;
   grid-template-columns: 100%;
   grid-row-gap: 20px;
@@ -112,7 +112,7 @@
 }
 
 .login__caption {
-  margin-top: 260px;
+  margin-top: 290px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 190px 6px 89px;

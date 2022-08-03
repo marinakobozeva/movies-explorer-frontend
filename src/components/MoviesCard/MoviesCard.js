@@ -6,12 +6,18 @@ import './MoviesCard.css';
 
 function MoviesCard(props) {
   const movie = props.movie;
-  const onMovieSave = props.onMovieSave;
+  const onSaveClick = props.onSaveClick;
+  const onDeleteClick = props.onDeleteClick;
   const onlySaved = props.onlySaved;
 
   const handleSaveClick = (event) => {
     event.stopPropagation();
-    onMovieSave(movie)
+    onSaveClick(movie)
+  }
+
+  const handleDeleteClick = (event) => {
+    event.stopPropagation();
+    onDeleteClick(movie);
   }
 
   return (
@@ -23,7 +29,7 @@ function MoviesCard(props) {
           </div>
           {
             onlySaved ?
-              <button className='movies__card-button movies__card-button_type_delete'></button> :
+              <button onClick={handleDeleteClick} className='movies__card-button movies__card-button_type_delete'></button> :
               <button onClick={handleSaveClick} className={ movie.saved ? 'movies__card-button movies__card-button_type_active' : 'movies__card-button' }></button>
           }
         </div>

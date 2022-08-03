@@ -1,31 +1,36 @@
 import React from 'react';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
+import MoviesApi from '../../utils/MoviesApi';
+
+import { SEARCH_FIELDS } from '../../constants/constants';
+import { filterByQuery, filterByTime, updateMoviesPoster } from '../../utils/MoviesToolbox';
 
 import '../Movies/Movies.css';
 import './SavedMovies.css';
 
-import { savedMovies } from '../../constants/moviesArray';
-
 function SavedMovies(props) {
-  const [moviesArray, setMoviesArray] = useState(savedMovies);
-  const onSaveClick = (movie) => {
-    const newArray = []
-    savedMovies.forEach((item) => {
-      if (movie.id === item.id) {
-        item.saved = !item.saved
-      }
-      newArray.push(item);
-    })
-    setMoviesArray(newArray);
+  const moviesArray = props.moviesArray;
+  const onDeleteClick = props.onDeleteClick;
+  const [renderMovies, setRenderMovies] = useState([]);
+
+  useEffect(() => {
+    setRenderMovies(updateMoviesPoster(moviesArray, MoviesApi.options.baseUrl))
+  }, [moviesArray])
+
+  const onSearch = (query, onlyShorts) => {
+    const queryFilteredMovies = filterByQuery(moviesArray, query, SEARCH_FIELDS);
+    const timeFilteredMovies = filterByTime(queryFilteredMovies, onlyShorts);
+    setRenderMovies(timeFilteredMovies);
   }
 
   return (
     <div className='movies saved-movies'>
-      <SearchForm />
-      <MoviesCardList moviesArray={ moviesArray } onSaveClick={ onSaveClick } onlySaved={ true }/>
+      <SearchForm cachedQuery='' cachedOnlyShorts={false} onSearch={onSearch} />
+      <MoviesCardList onDeleteClick={onDeleteClick} listHidden={false} isLoading={false} moviesArray={renderMovies} onlySaved={true}/>
     </div>
   )
 }

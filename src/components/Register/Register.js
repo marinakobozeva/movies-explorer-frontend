@@ -29,7 +29,7 @@ function Register(props) {
           <p className='register__form-caption'>Имя</p>
           <input
             type='text'
-            name='text'
+            name='name'
             placeholder='Имя'
             className='register__input register__input_type_name'
             maxLength='40'

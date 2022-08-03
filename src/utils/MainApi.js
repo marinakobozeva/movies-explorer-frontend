@@ -33,10 +33,10 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
-  getUserInfo(token) {
+  getUserInfo() {
     return fetch(`${this.options.baseUrl}/users/me`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem('token')}`,
         ...this.options.headers,
       },
     })
@@ -78,16 +78,16 @@ class MainApi {
       },
       body: JSON.stringify({
         country: movie.country,
-        description: movie.description,
+        description: movie.description || 'Без описания',
         director: movie.director,
         duration: movie.duration,
         movieId: movie.id,
-        image: movie.image,
-        nameRU: movie.nameRU,
-        nameEN: movie.nameEN,
-        poster: movie.image,
+        image: movie.poster,
+        nameRU: movie.nameRU || 'Без имени',
+        nameEN: movie.nameEN || 'No name',
         trailerLink: movie.trailerLink,
-        year: movie.year
+        thumbnail: movie.thumbnail,
+        year: movie.year,
       }),
     })
     .then(this._checkResponse);
@@ -105,8 +105,10 @@ class MainApi {
   }
 }
 
+const { REACT_APP_NODE_ENV, REACT_APP_API_URL } = process.env;
+
 export default new MainApi({
-  baseUrl: 'http://localhost:3001',
+  baseUrl: REACT_APP_NODE_ENV === 'production' ? REACT_APP_API_URL : 'http://localhost:3001',
   headers: {
     'Accept': 'application/json',
     'Content-Type': 'application/json'

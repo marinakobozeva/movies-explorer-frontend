@@ -1,17 +1,25 @@
 import React from 'react';
 import { useContext } from 'react';
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { useFormWithValidation } from '../../utils/useFormWithValidation';
 
 import './Profile.css';
 
 function Profile(props) {
   const onSignOut = props.onSignOut;
   const onUserInfoUpdate = props.onUserInfoUpdate;
+  const profileMessage = props.profileMessage;
   const currentUser = useContext(CurrentUserContext);
-  const [name, setName] = useState(currentUser.name);
-  const [email, setEmail] = useState(currentUser.email);
+
+  const { values, errors, isValid, handleChange, setValues } = useFormWithValidation();
+
+  useEffect(() => {
+    setValues(currentUser);
+    // setIsValid(true);
+  }, [currentUser])
 
   const handleSignOut = (event) => {
     event.preventDefault();
@@ -20,15 +28,7 @@ function Profile(props) {
 
   const handleSubmitForm = (event) => {
     event.preventDefault();
-    onUserInfoUpdate(name, email);
-  }
-
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  }
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
+    onUserInfoUpdate(values.name, values.email);
   }
 
   return (
@@ -41,17 +41,33 @@ function Profile(props) {
       <form className='profile__form' onSubmit={handleSubmitForm}>
         <div className='profile__form-field'>
             <p className='profile__form-caption'>Имя</p>
-            <input onChange={handleNameChange} className='profile__input profile__input_type_name' value={name}></input>
+            <input
+              required
+              type='text'
+              name='name'
+              onChange={handleChange}
+              className='profile__input profile__input_type_name'
+              value={values.name || ''} />
+            <span className="register__form-error">{errors.name}</span>
         </div>
         <span className="profile__form-error"></span>
         <span className='profile__bar'></span>
         <div className='profile__form-field'>
             <p className='profile__form-caption'>E-mail</p>
-            <input onChange={handleEmailChange} className='profile__input profile__input_type_email' value={email}></input>
+            <input
+              required
+              type='email'
+              name='email'
+              onChange={handleChange}
+              className='profile__input profile__input_type_email'
+              value={values.email || ''} />
+              <span className="register__form-error">{errors.email}</span>
         </div>
         <span className="profile__form-error"></span>
-        <span className="profile__form-edit"></span>
-        <button type='submit' className='profile__edit-btn profile-btn'>Редактировать</button>
+        <p className='profile__form-message'>{profileMessage || ''}</p>
+        <button
+          type='submit'
+          className={`profile__edit-btn ${isValid ? 'profile__edit-btn_type_active' : ''}`}>Редактировать</button>
       </form>
       <button onClick={handleSignOut} type='submit' className='profile__exit-btn profile-btn'>Выйти из аккаунта</button>
     </div>

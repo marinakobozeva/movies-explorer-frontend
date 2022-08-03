@@ -31,7 +31,7 @@
   display: -ms-grid;
   display: grid;
   -ms-grid-rows: 68px 20px 68px 20px 68px;
-  grid-template-rows: repeat(3, 68px);
+  grid-template-rows: repeat(3, 80px);
   -ms-grid-columns: 100%;
   grid-template-columns: 100%;
   grid-row-gap: 20px;
@@ -77,10 +77,6 @@
           box-sizing: border-box;
 }
 
-.register__input_type_errors {
-
-}
-
 .register__input:focus {
   outline: 2px solid #FF6838;
 }
@@ -116,7 +112,7 @@
 }
 
 .register__caption {
-  margin-top: 123px;
+  margin-top: 190px;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 169px 6px 42px;

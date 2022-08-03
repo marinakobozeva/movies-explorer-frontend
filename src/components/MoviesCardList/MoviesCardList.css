@@ -15,6 +15,14 @@
 
 }
 
+.movies__list-message {
+  text-align: center;
+}
+
+.movies__list_type_hidden {
+  display: none;
+}
+
 @media screen and (max-width: 1279px) {
   .movies__list {
     grid-template-columns: repeat(auto-fill, 339px);
