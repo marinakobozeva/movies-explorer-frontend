@@ -7,7 +7,8 @@ import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 
-import { DESKTOP_WIDTH, TABLET_WIDTH } from '../../constants/constants.js';
+import { filterByQuery, filterByTime } from '../../utils/MoviesToolbox';
+import { SEARCH_FIELDS, DESKTOP_WIDTH, TABLET_WIDTH } from '../../constants/constants.js';
 
 import './Movies.css';
 
@@ -25,6 +26,7 @@ function Movies(props) {
   }
 
   const onSearch = props.onSearch;
+  const onOnlyShorts = props.onOnlyShorts;
   const onSaveClick = props.onSaveClick;
 
   const listError = props.listError;
@@ -35,6 +37,7 @@ function Movies(props) {
   const moviesArray = props.moviesArray;
 
   const [renderParams, setRenderParams] = useState(getRenderParams())
+  const [filteredMovies, setFilteredMovies] = useState(moviesArray);
   const [renderFilms, setRenderFilms] = useState([]);
   const [haveNext, setHaveNext] = useState(moviesArray.length > renderParams.firstRenderSize);
   const [moreCounter, setMoreCounter] = useState(0);
@@ -46,6 +49,12 @@ function Movies(props) {
   const onWindowResize = () => {
     setRenderParams(getRenderParams())
   }
+
+  useEffect(() => {
+    const filteredByQuery = filterByQuery(moviesArray, cachedQuery, SEARCH_FIELDS);
+    const filteredByTime = filterByTime(filteredByQuery, cachedOnlyShorts);
+    setFilteredMovies(filteredByTime);
+  }, [moviesArray, cachedQuery, cachedOnlyShorts])
 
   useEffect(() => {
     window.addEventListener('resize', onWindowResize)
@@ -60,20 +69,20 @@ function Movies(props) {
   }, [cachedQuery, cachedOnlyShorts])
 
   useEffect(() => {
-    setRenderFilms(moviesArray.slice(0, renderParams.firstRenderSize + renderParams.nextRenderSize * moreCounter))
-  }, [moviesArray, moreCounter, renderParams])
+    setRenderFilms(filteredMovies.slice(0, renderParams.firstRenderSize + renderParams.nextRenderSize * moreCounter))
+  }, [filteredMovies, moreCounter, renderParams])
 
   useEffect(() => {
-    if (renderFilms.length === moviesArray.length) {
+    if (renderFilms.length === filteredMovies.length) {
       setHaveNext(false);
     } else {
       setHaveNext(true);
     }
-  }, [moviesArray, renderFilms])
+  }, [filteredMovies, renderFilms])
 
   return (
     <div className='movies'>
-      <SearchForm onSearch={onSearch} cachedQuery={cachedQuery} cachedOnlyShorts={cachedOnlyShorts}/>
+      <SearchForm onSearch={onSearch} onOnlyShorts={onOnlyShorts} cachedQuery={cachedQuery} cachedOnlyShorts={cachedOnlyShorts}/>
       <MoviesCardList
         listError={listError}
         listHidden={listHidden}

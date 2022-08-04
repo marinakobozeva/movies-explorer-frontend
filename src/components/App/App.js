@@ -22,8 +22,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import MoviesApi from '../../utils/MoviesApi';
 import MainApi from '../../utils/MainApi';
 
-import { SEARCH_FIELDS } from '../../constants/constants';
-import { filterByQuery, filterByTime, updateMoviesPoster } from '../../utils/MoviesToolbox';
+import { updateMoviesPoster } from '../../utils/MoviesToolbox';
 
 // TODO: добавить красивые обработчики ошибок (в секции catch)
 // TODO: в профиль добавить popup (text?) после успешного редактирования
@@ -49,7 +48,10 @@ function App() {
   useEffect(() => {
     if (loggedIn) {
       MainApi.getSavedMovies()
-      .then((movies) => {setSavedMoviesArray(movies)})
+      .then((movies) => {
+        const updatedMovies = updateMoviesPoster(movies, MoviesApi.options.baseUrl);
+        setSavedMoviesArray(updatedMovies)
+      })
       .catch((message) => {
         console.log(message)
       })
@@ -97,13 +99,15 @@ function App() {
     localStorage.setItem('cachedQuery', cachedQuery)
   }, [cachedQuery])
 
+  const onOnlyShorts = (onlyShorts) => {
+    setCachedOnlyShorts(onlyShorts);
+  }
+
   const onSearch = (query, onlyShorts) => {
     setIsLoading(true);
     MoviesApi.getMovies()
       .then((response) => {
-        const queryFilteredMovies = filterByQuery(response, query, SEARCH_FIELDS);
-        const timeFilteredMovies = filterByTime(queryFilteredMovies, onlyShorts);
-        const updatedMovies = updateMoviesPoster(timeFilteredMovies, MoviesApi.options.baseUrl);
+        const updatedMovies = updateMoviesPoster(response, MoviesApi.options.baseUrl);
         const saveStateMovies = updateSaveState(updatedMovies, savedMoviesArray);
         setMoviesArray(saveStateMovies);
         setCachedQuery(query);
@@ -233,6 +237,7 @@ function App() {
             </ProtectedRoute>
             <ProtectedRoute loggedIn={loggedIn} path='/movies'>
               <Movies
+                onOnlyShorts={onOnlyShorts}
                 onSearch={onSearch}
                 onSaveClick={onSaveClick}
                 isLoading={isLoading}

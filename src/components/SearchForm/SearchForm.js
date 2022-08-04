@@ -8,12 +8,12 @@ import searchIcon from '../../images/search-icon.svg';
 
 function SearchForm(props) {
   const onSearch = props.onSearch;
+  const onOnlyShorts = props.onOnlyShorts;
   const cachedQuery = props.cachedQuery;
   const cachedOnlyShorts = props.cachedOnlyShorts;
 
   const [isValid, setIsValid] = useState(false);
   const [query, setQuery] = useState(cachedQuery);
-  const [onlyShorts, setOnlyShorts] = useState(cachedOnlyShorts);
 
   useEffect(() => {
     setIsValid(query.length > 0);
@@ -24,12 +24,12 @@ function SearchForm(props) {
   }
 
   const handleOnlyShortsChange = (event) => {
-    setOnlyShorts(!onlyShorts)
+    onOnlyShorts(!cachedOnlyShorts)
   }
 
   const handleSearchClick = (event) => {
     event.preventDefault();
-    onSearch(query, onlyShorts);
+    onSearch(query, cachedOnlyShorts);
   }
 
   return (
@@ -49,7 +49,7 @@ function SearchForm(props) {
       <div className='shorts-movies'>
         <p className='shorts-movies__text'>Короткометражки</p>
         <label className="shorts-movies__switch">
-          <input onClick={handleOnlyShortsChange} defaultChecked={onlyShorts} type="checkbox" className='shorts-movies__checkbox' value={`${onlyShorts}`}></input>
+          <input onClick={handleOnlyShortsChange} defaultChecked={cachedOnlyShorts} type="checkbox" className='shorts-movies__checkbox' value={`${cachedOnlyShorts}`}></input>
         </label>
       </div>
     </div>

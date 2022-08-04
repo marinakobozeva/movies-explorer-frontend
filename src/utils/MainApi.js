@@ -85,7 +85,7 @@ class MainApi {
         image: movie.poster,
         nameRU: movie.nameRU || 'Без имени',
         nameEN: movie.nameEN || 'No name',
-        trailerLink: movie.trailerLink,
+        trailerLink: movie.trailerLink || 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
         thumbnail: movie.thumbnail,
         year: movie.year,
       }),
