@@ -12,7 +12,9 @@ function MoviesCard(props) {
 
   const handleSaveClick = (event) => {
     event.stopPropagation();
-    onSaveClick(movie)
+    if (!movie.saved) {
+      onSaveClick(movie);
+    }
   }
 
   const handleDeleteClick = (event) => {

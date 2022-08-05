@@ -18,10 +18,14 @@ function SavedMovies(props) {
   const [query, setQuery] = useState('');
   const [onlyShorts, setOnlyShort] = useState(false);
   const [renderMovies, setRenderMovies] = useState(moviesArray);
+  const [filteredMovies, setFilteredMovies] = useState([]);
 
+  // Костыль, чтобы установить корректный постер, потому что схема данных
+  // у сохраненных и обычных фильмов различается...
   useEffect(() => {
     const updatedPoster = updateMoviesPoster(moviesArray, MoviesApi.options.baseUrl);
     setRenderMovies(updatedPoster);
+    setFilteredMovies(updatedPoster);
   }, [moviesArray])
 
   const onSearch = (query, onlyShorts) => {
@@ -29,20 +33,20 @@ function SavedMovies(props) {
     const timeFilteredMovies = filterByTime(queryFilteredMovies, onlyShorts);
     setQuery(query);
     setOnlyShort(onlyShorts);
-    setRenderMovies(timeFilteredMovies);
+    setFilteredMovies(timeFilteredMovies);
   }
 
   const onOnlyShorts = (onlyShorts) => {
-    const queryFilteredMovies = filterByQuery(moviesArray, query, SEARCH_FIELDS);
+    const queryFilteredMovies = filterByQuery(renderMovies, query, SEARCH_FIELDS);
     const timeFilteredMovies = filterByTime(queryFilteredMovies, onlyShorts);
-    setRenderMovies(timeFilteredMovies);
+    setFilteredMovies(timeFilteredMovies);
     setOnlyShort(onlyShorts);
   }
 
   return (
     <div className='movies saved-movies'>
       <SearchForm cachedQuery='' cachedOnlyShorts={onlyShorts} onSearch={onSearch} onOnlyShorts={onOnlyShorts} />
-      <MoviesCardList onDeleteClick={onDeleteClick} listHidden={false} isLoading={false} moviesArray={renderMovies} onlySaved={true}/>
+      <MoviesCardList onDeleteClick={onDeleteClick} listHidden={false} isLoading={false} moviesArray={filteredMovies} onlySaved={true}/>
     </div>
   )
 }

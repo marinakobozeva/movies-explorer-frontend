@@ -8,7 +8,7 @@ import SearchForm from '../SearchForm/SearchForm';
 import Preloader from '../Preloader/Preloader';
 
 import { filterByQuery, filterByTime } from '../../utils/MoviesToolbox';
-import { SEARCH_FIELDS, DESKTOP_WIDTH, TABLET_WIDTH } from '../../constants/constants.js';
+import { SEARCH_FIELDS, DESKTOP_WIDTH, TABLET_WIDTH, RENDER_PARAMS } from '../../constants/constants.js';
 
 import './Movies.css';
 
@@ -18,11 +18,11 @@ function Movies(props) {
     const windowWidth = window.innerWidth;
 
     if (windowWidth >= DESKTOP_WIDTH) {
-      return {firstRenderSize: 12, nextRenderSize: 3}
+      return RENDER_PARAMS['desktop'];
     } else if (windowWidth >= TABLET_WIDTH) {
-      return {firstRenderSize: 8, nextRenderSize: 2}
+      return RENDER_PARAMS['tablet'];
     }
-    return {firstRenderSize: 5, nextRenderSize: 2}
+    return RENDER_PARAMS['default'];
   }
 
   const onSearch = props.onSearch;

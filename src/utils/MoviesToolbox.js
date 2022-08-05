@@ -1,3 +1,5 @@
+import { SHORT_FILM } from "../constants/constants";
+
 export const filterByQuery = (moviesArr, query, possibleFields) => {
   return moviesArr.filter((movieInfo) => {
     let found = false;
@@ -13,7 +15,7 @@ export const filterByQuery = (moviesArr, query, possibleFields) => {
 export const filterByTime = (moviesArr, onlyShorts) => {
   return moviesArr.filter((movieInfo) => {
     if (onlyShorts) {
-      return movieInfo.duration <= 40;
+      return movieInfo.duration <= SHORT_FILM;
     }
     return true;
   })

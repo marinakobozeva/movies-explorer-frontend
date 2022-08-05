@@ -14,12 +14,19 @@ function Profile(props) {
   const profileMessage = props.profileMessage;
   const currentUser = useContext(CurrentUserContext);
 
-  const { values, errors, isValid, handleChange, setValues } = useFormWithValidation();
+  const { values, errors, isValid, handleChange, setValues, setIsValid } = useFormWithValidation();
 
+  // В начале обновляем форму, подгружая туда данные
   useEffect(() => {
     setValues(currentUser);
-    // setIsValid(true);
-  }, [currentUser])
+  }, [currentUser]);
+
+  // Следим, чтобы при совпадении данных мы не могли отправить запрос
+  useEffect(() => {
+    if ((values.name === currentUser.name) && (values.email === currentUser.email)) {
+      setIsValid(false);
+    }
+  }, [values, currentUser]);
 
   const handleSignOut = (event) => {
     event.preventDefault();

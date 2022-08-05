@@ -1,5 +1,8 @@
 import React from "react";
 import { useCallback } from "react";
+import { useEffect } from "react";
+
+import { EMAIL_VALIDATION_ERROR } from '../constants/constants';
 
 //хук управления формой
 export function useForm() {
@@ -15,20 +18,40 @@ export function useForm() {
   return {values, handleChange, setValues};
 }
 
+const isValidEmail = (email) => {
+  return /\S+@\S+\.\S+/.test(email);
+}
+
 //хук управления формой и валидации формы
 export function useFormWithValidation() {
   const [values, setValues] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const [isValid, setIsValid] = React.useState(false);
+  const [isFormValid, setIsFormValid] = React.useState(false);
 
   const handleChange = (event) => {
     const target = event.target;
     const name = target.name;
     const value = target.value;
+    const type = target.type;
+
+    let error = target.validationMessage;
+    if ((type === 'email') && (!isValidEmail(value))) {
+      error = EMAIL_VALIDATION_ERROR;
+    }
+
     setValues({...values, [name]: value});
-    setErrors({...errors, [name]: target.validationMessage });
-    setIsValid(target.closest("form").checkValidity());
+    setErrors({...errors, [name]: error});
+    setIsFormValid(target.closest("form").checkValidity());
   };
+
+  useEffect(() => {
+    if (isFormValid && Object.values(errors).every((el) => el.length === 0)) {
+      setIsValid(true);
+    } else {
+      setIsValid(false);
+    }
+  }, [isFormValid, errors])
 
   const resetForm = useCallback(
     (newValues = {}, newErrors = {}, newIsValid = false) => {

@@ -1,6 +1,7 @@
 import './App.css';
 
 import { Route } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -22,6 +23,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import MoviesApi from '../../utils/MoviesApi';
 import MainApi from '../../utils/MainApi';
 
+import { UNKNOWN_ERROR, USER_DATA_CHANGED, USER_DATA_ERROR } from '../../constants/constants';
 import { updateMoviesPoster } from '../../utils/MoviesToolbox';
 
 // TODO: добавить красивые обработчики ошибок (в секции catch)
@@ -76,7 +78,7 @@ function App() {
   //---------- ФИЛЬМЫ
   // Один раз при монтировании смотрим, есть ли фильмы и запрос в локальном хранилище
   useEffect(() => {
-    const bufMovies = JSON.parse(localStorage.getItem('moviesArray')) || [];
+    const bufMovies = JSON.parse(localStorage.getItem('cachedMoviesArray')) || [];
     setListHidden(bufMovies.length === 0);
     setMoviesArray(bufMovies);
 
@@ -88,7 +90,7 @@ function App() {
   }, [loggedIn])
 
   useEffect(() => {
-    localStorage.setItem('moviesArray', JSON.stringify(moviesArray));
+    localStorage.setItem('cachedMoviesArray', JSON.stringify(moviesArray));
   }, [moviesArray])
 
   useEffect(() => {
@@ -104,24 +106,34 @@ function App() {
   }
 
   const onSearch = (query, onlyShorts) => {
-    setIsLoading(true);
-    MoviesApi.getMovies()
-      .then((response) => {
-        const updatedMovies = updateMoviesPoster(response, MoviesApi.options.baseUrl);
-        const saveStateMovies = updateSaveState(updatedMovies, savedMoviesArray);
-        setMoviesArray(saveStateMovies);
-        setCachedQuery(query);
-        setCachedOnlyShorts(onlyShorts);
-        setIsLoading(false);
-        setListHidden(false);
-        setListError(null);
-      })
-      .catch((message) => {
-        console.log(message)
-        setIsLoading(false);
-        setListHidden(false);
-        setListError('Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте еще раз')
-      })
+    if (moviesArray.length > 0) {
+      // Мы всегда должны синхронизировать состояние сохраненных и всех фильмов
+      const saveStateMovies = updateSaveState(moviesArray, savedMoviesArray);
+      setMoviesArray(saveStateMovies);
+      setCachedQuery(query);
+      setCachedOnlyShorts(onlyShorts);
+      setListHidden(false);
+      setListError(null);
+    } else {
+      setIsLoading(true);
+      MoviesApi.getMovies()
+        .then((response) => {
+          const updatedMovies = updateMoviesPoster(response, MoviesApi.options.baseUrl);
+          const saveStateMovies = updateSaveState(updatedMovies, savedMoviesArray);
+          setMoviesArray(saveStateMovies);
+          setCachedQuery(query);
+          setCachedOnlyShorts(onlyShorts);
+          setIsLoading(false);
+          setListHidden(false);
+          setListError(null);
+        })
+        .catch((message) => {
+          console.log(message)
+          setIsLoading(false);
+          setListHidden(false);
+          setListError(UNKNOWN_ERROR);
+        })
+    }
   }
 
   //---------- ВЗАИМОДЕЙСТВИЕ С КАРТОЧКОЙ
@@ -195,7 +207,7 @@ function App() {
 
   const onSignOut = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('moviesArray');
+    localStorage.removeItem('cachedMoviesArray');
     localStorage.removeItem('cachedQuery');
     localStorage.removeItem('cachedOnlyShorts');
     setCurrentUser({});
@@ -208,11 +220,11 @@ function App() {
     MainApi.changeUserInfo(name, email)
       .then((user) => {
         setCurrentUser(user);
-        setProfileMessage('Изменения сохранены');
+        setProfileMessage(USER_DATA_CHANGED);
       })
       .catch((message) => {
         console.log(message);
-        setProfileMessage('Во время обновления данных произошла ошибка...');
+        setProfileMessage(USER_DATA_ERROR);
       })
   }
 
@@ -223,11 +235,12 @@ function App() {
           <Header loggedIn={loggedIn} />
         </Route>
           <Switch>
+
             <Route path='/signup'>
-              <Register onRegistration={onRegistration} />
+              { loggedIn ? <Redirect to="/movies" /> : <Register onRegistration={onRegistration} /> }
             </Route>
             <Route path='/signin'>
-              <Login onLogin={onLogin} />
+              { loggedIn ? <Redirect to="/movies" /> : <Login onLogin={onLogin} /> }
             </Route>
             <ProtectedRoute loggedIn={loggedIn} path='/profile'>
               <Profile
