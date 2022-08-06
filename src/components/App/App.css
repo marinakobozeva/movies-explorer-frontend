@@ -1,0 +1,9 @@
+.app {
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
